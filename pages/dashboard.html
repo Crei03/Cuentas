@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <main class="container">
+        <header class="header">
+            <h1 id="welcome">Bienvenido</h1>
+            <p id="username" class="muted">Usuario</p>
+        </header>
+
+        <section class="controls">
+            <button id="btnAddSalary" class="btn">Agregar sueldo</button>
+        </section>
+
+        <section class="content-grid">
+            <aside class="left-panel">
+                <h2>Deducciones extra</h2>
+                <div id="extraDeductionsList">
+                    <!-- Campos agregados dinámicamente -->
+                </div>
+                <button id="btnAddExtra" class="btn small">Agregar deducción</button>
+            </aside>
+
+            <section class="right-panel">
+                <h2>Resumen de cálculos</h2>
+                <div class="calc">
+                    <label>Sueldo mensual (bruto):</label>
+                    <div id="salaryMonthly">-</div>
+                </div>
+                <div class="calc">
+                    <label>Sueldo quincenal:</label>
+                    <div id="salaryBiweekly">-</div>
+                </div>
+                <div class="calc">
+                    <label>Sueldo anual (13 meses):</label>
+                    <div id="salaryAnnual">-</div>
+                </div>
+                <h3>Deducciones legales</h3>
+                <div class="calc">
+                    <label>Seguro social (9.5%):</label>
+                    <div id="socialInsurance">-</div>
+                </div>
+                <div class="calc">
+                    <label>Seguro educativo (2.5%):</label>
+                    <div id="educationalInsurance">-</div>
+                </div>
+                <div class="calc">
+                    <label>Impuesto sobre la renta (ISR):</label>
+                    <div id="incomeTax">-</div>
+                </div>
+
+                <h3>Deducciones extra</h3>
+                <div id="extraDeductionsSummary">
+                    <!-- Sumario de deducciones no legales -->
+                </div>
+
+                <h2>Resultado</h2>
+                <div class="calc total">
+                    <label>Sueldo neto mensual:</label>
+                    <div id="netSalary">-</div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Modal -->
+        <div id="salaryModal" class="modal hidden" aria-hidden="true">
+            <div class="modal-content">
+                <h2>Agregar sueldo</h2>
+                <label for="monthlySalary">Sueldo mensual (bruto)</label>
+                <input id="monthlySalary" type="number" min="0" step="0.01" placeholder="0.00">
+
+                <div class="modal-actions">
+                    <button id="saveSalary" class="btn primary">Guardar</button>
+                    <button id="cancelSalary" class="btn">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html>
