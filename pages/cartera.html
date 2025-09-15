@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Cartera - Entradas y Salidas</title>
+	<link rel="stylesheet" href="../css/cartera.css">
+	<link rel="stylesheet" href="../css/dashboard.css">
+	<!-- Chart.js CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="cartera-page">
+	<div class="container">
+		<div class="header">
+			<h1>Cartera</h1>
+			<div class="controls">
+				<button id="btnNewEntry" class="btn">Nueva Entrada</button>
+				<button id="btnNewExpense" class="btn secondary">Nueva Salida</button>
+				<button id="btnNewPending" class="btn" title="Registrar cobro pendiente">Cobro Pendiente</button>
+				<label class="small muted" style="margin-left:12px">Filtrar mes</label>
+				<input id="filterMonth" type="month" style="margin-left:6px;padding:8px;border-radius:6px;border:1px solid #e6edf3" />
+				<button id="clearFilter" class="btn secondary small" style="margin-left:6px">Limpiar</button>
+			</div>
+		</div>
+
+		<!-- fila media: resumen + charts -->
+		<div class="summary-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px">
+      <div class="card summary-card">
+        <div class="title">💰 Resumen Financiero</div>
+        <div class="totals">
+          <div class="summary-item">
+            <div class="label">Total Entradas</div>
+            <div id="totalEntries" class="value big entries">$0.00</div>
+          </div>
+          <div class="summary-item">
+            <div class="label">Total Salidas</div>
+            <div id="totalExpenses" class="value big expenses">$0.00</div>
+          </div>
+          <div class="summary-item">
+            <div class="label">Balance Neto</div>
+            <div id="netTotal" class="value big balance">$0.00</div>
+          </div>
+        </div>
+      </div>
+			<div class="card chart-card">
+				<div class="title">📊 Comparación Mensual</div>
+				<canvas id="barChart"></canvas>
+			</div>
+			<div class="card chart-card">
+				<div class="title">🥧 Distribución Actual</div>
+				<canvas id="pieChart"></canvas>
+			</div>
+		</div>
+
+		<!-- fila inferior: listas con columnas (Entradas, Salidas y opcional Pendings) -->
+		<div class="lists-grid" style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;align-items:start">
+			<div id="colEntries" class="card">
+				<h3>Entradas</h3>
+				<div id="entriesList" class="list"></div>
+			</div>
+			<div id="colExpenses" class="card">
+				<h3>Salidas</h3>
+				<div id="expensesList" class="list"></div>
+			</div>
+			<div id="colPending" class="card">
+				<h3>Cobros pendientes</h3>
+				<div id="pendingList" class="list"></div>
+			</div>
+		</div>
+	</div>
+
+		<!-- Confirmación global -->
+		<div id="confirmBackdrop" class="modal-backdrop">
+			<div class="modal card">
+				<div style="margin-bottom:8px"><h3 id="confirmTitle">Confirmar</h3></div>
+				<div id="confirmMessage" class="muted small">¿Estás seguro?</div>
+				<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
+					<button id="confirmCancel" class="btn secondary">Cancelar</button>
+					<button id="confirmOk" class="btn">Confirmar</button>
+				</div>
+			</div>
+		</div>
+
+	<!-- Modal -->
+	<div id="modalBackdrop" class="modal-backdrop">
+		<div class="modal card">
+			<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+				<h3 id="modalTitle">Nuevo item</h3>
+				<button id="modalClose" class="btn secondary">Cerrar</button>
+			</div>
+			<form id="itemForm">
+				<input type="hidden" id="itemType" value="entry">
+				<input type="hidden" id="itemId" value="">
+				<div class="form-row" id="relatedRow" style="display:none">
+					<label for="relatedExpense">Asociar a Salida (opcional)</label>
+					<select id="relatedExpense">
+						<option value="">-- Sin asociación --</option>
+					</select>
+				</div>
+				<div class="form-row">
+					<label for="name">Nombre *</label>
+					<input id="name" required />
+				</div>
+				<div class="form-row">
+					<label for="description">Descripción</label>
+					<textarea id="description" rows="2"></textarea>
+				</div>
+				<div class="form-row">
+					<label for="amount">Monto *</label>
+					<input id="amount" type="number" step="0.01" min="0" required />
+				</div>
+				<div class="form-row">
+					<label for="date">Fecha</label>
+					<input id="date" type="date">
+				</div>
+				<div style="display:flex;justify-content:flex-end;gap:8px">
+					<button type="button" id="modalCancel" class="btn secondary">Cancelar</button>
+					<button type="submit" class="btn">Guardar</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="../js/cartera.js"></script>
+</body>
+</html>

@@ -14,27 +14,27 @@
         </header>
 
         <section class="controls">
-            <button id="btnAddSalary" class="btn">Agregar sueldo</button>
+            <button id="btnAddSalary" class="btn primary" aria-haspopup="dialog" aria-controls="salaryModal">Agregar sueldo</button>
         </section>
 
         <section class="content-grid">
             <aside class="left-panel">
                 <h2>Deducciones extra</h2>
+                <button id="btnAddExtra" class="btn small">Agregar deducción</button>
                 <div id="extraDeductionsList">
                     <!-- Campos agregados dinámicamente -->
                 </div>
-                <button id="btnAddExtra" class="btn small">Agregar deducción</button>
             </aside>
 
             <section class="right-panel">
                 <h2>Resumen de cálculos</h2>
                 <div class="calc">
-                    <label>Sueldo mensual (bruto):</label>
-                    <div id="salaryMonthly">-</div>
-                </div>
-                <div class="calc">
                     <label>Sueldo quincenal:</label>
                     <div id="salaryBiweekly">-</div>
+                </div>
+                <div class="calc">
+                    <label>Sueldo mensual (bruto):</label>
+                    <div id="salaryMonthly">-</div>
                 </div>
                 <div class="calc">
                     <label>Sueldo anual (13 meses):</label>
@@ -42,12 +42,12 @@
                 </div>
                 <h3>Deducciones legales</h3>
                 <div class="calc">
-                    <label>Seguro social (9.5%):</label>
-                    <div id="socialInsurance">-</div>
-                </div>
-                <div class="calc">
                     <label>Seguro educativo (2.5%):</label>
                     <div id="educationalInsurance">-</div>
+                </div>
+                <div class="calc">
+                    <label>Seguro social (9.5%):</label>
+                    <div id="socialInsurance">-</div>
                 </div>
                 <div class="calc">
                     <label>Impuesto sobre la renta (ISR):</label>
@@ -68,11 +68,12 @@
         </section>
 
         <!-- Modal -->
-        <div id="salaryModal" class="modal hidden" aria-hidden="true">
+        <div id="salaryModal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="salaryModalTitle">
             <div class="modal-content">
-                <h2>Agregar sueldo</h2>
+                <h2 id="salaryModalTitle">Agregar sueldo</h2>
+                <p class="help">Introduce tu sueldo mensual bruto para ver los cálculos en tiempo real.</p>
                 <label for="monthlySalary">Sueldo mensual (bruto)</label>
-                <input id="monthlySalary" type="number" min="0" step="0.01" placeholder="0.00">
+                <input id="monthlySalary" type="number" min="0" step="0.01" placeholder="0.00" aria-label="Sueldo mensual bruto">
 
                 <div class="modal-actions">
                     <button id="saveSalary" class="btn primary">Guardar</button>

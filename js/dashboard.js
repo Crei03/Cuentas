@@ -42,15 +42,19 @@
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
 
+    let lastFocused = null;
     function openModal() {
+        lastFocused = document.activeElement;
         salaryModal.classList.remove('hidden');
         salaryModal.setAttribute('aria-hidden', 'false');
         monthlySalaryInput.value = state.monthlySalary ?? '';
-        monthlySalaryInput.focus();
+        // small timeout to ensure visible then focus
+        setTimeout(() => monthlySalaryInput.focus(), 60);
     }
     function closeModal() {
         salaryModal.classList.add('hidden');
         salaryModal.setAttribute('aria-hidden', 'true');
+        try { if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus(); } catch (e) { }
     }
 
     function calcAndRender() {
@@ -159,7 +163,7 @@
             });
 
             const remove = document.createElement('button');
-            remove.className = 'btn remove';
+            remove.className = 'remove';
             remove.textContent = 'Eliminar';
             remove.addEventListener('click', () => {
                 state.extras = state.extras.filter(it => it.id !== ex.id);
@@ -179,10 +183,21 @@
     btnAddSalary.addEventListener('click', openModal);
     cancelSalaryBtn.addEventListener('click', closeModal);
 
+    // inline validation for monthly input
+    monthlySalaryInput.addEventListener('input', () => {
+        const v = parseFloat(monthlySalaryInput.value);
+        if (!Number.isFinite(v) || v < 0) {
+            monthlySalaryInput.setAttribute('aria-invalid', 'true');
+        } else {
+            monthlySalaryInput.removeAttribute('aria-invalid');
+        }
+    });
+
     saveSalaryBtn.addEventListener('click', () => {
         const v = parseFloat(monthlySalaryInput.value);
         if (!Number.isFinite(v) || v < 0) {
-            alert('Introduce un sueldo válido');
+            monthlySalaryInput.setAttribute('aria-invalid', 'true');
+            monthlySalaryInput.focus();
             return;
         }
         state.monthlySalary = v;
@@ -203,6 +218,13 @@
     salaryModal.addEventListener('click', (e) => {
         if (e.target === salaryModal) closeModal();
     })
+
+    // Close modal with Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !salaryModal.classList.contains('hidden')) {
+            closeModal();
+        }
+    });
 
     // Init
     load();
