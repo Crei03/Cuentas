@@ -152,36 +152,35 @@ body.cartera-page{
   border-top:1px solid var(--border-light);
   justify-content:flex-end;
 }
-.btn{
-  padding:10px 16px;
-  border-radius:var(--radius-md);
-  border:1px solid transparent;
-  background:var(--accent);
-  color:white;
-  font-weight:500;
-  font-size:14px;
-  cursor:pointer;
-  transition:all 0.2s ease;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
+
+.btn {
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.btn:hover{
-  background:var(--accent-dark);
-  transform:translateY(-1px);
-  box-shadow:var(--shadow-md);
+.btn:hover,
+.btn.primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
-.btn.primary{
-  background:var(--card);
-  color:var(--text);
-  border-color:var(--border);
-}
-
-.btn.primary:hover{
-  background:var(--bg-secondary);
-  border-color:var(--muted);
+.btn.primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
 }
 
 .btn.secondary{
@@ -336,10 +335,10 @@ body.cartera-page{
 .lists-grid .list::-webkit-scrollbar-corner{
   background:transparent;
 }
-.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center}
-.modal-backdrop.show{display:flex}
-.modal{background:var(--card);padding:16px;border-radius:8px;min-width:320px}
-.modal.show{display:flex}
+.cartera-modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;z-index:60}
+.cartera-modal-backdrop.show{display:flex}
+.cartera-modal{background:var(--card);padding:16px;border-radius:8px;min-width:320px;max-width:96%;box-shadow:var(--shadow-lg)}
+.cartera-modal.show{display:flex}
 .form-row{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
 .form-row label{font-size:13px}
 .form-row input,.form-row textarea, .form-row select{padding:8px;border-radius:6px;border:1px solid #e6edf3}
